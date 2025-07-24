@@ -1,7 +1,138 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Keyframes untuk animasi pulse glow pada elemen (sudah ada) */
+@keyframes pulse-light {
+  0%, 100% {
+    box-shadow: 0 0 0px 0px rgba(126, 87, 194, 0.4); /* Warna dari [#7E57C2] */
   }
-  
+  50% {
+    box-shadow: 0 0 0px 8px rgba(126, 87, 194, 0); /* Outer pulse memudar */
+  }
+}
+
+.animate-pulse-light {
+  animation: pulse-light 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Keyframes untuk efek latar belakang blob yang bergerak (sudah ada) */
+@keyframes blob-animation {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translate(-48%, -52%) scale(1.02);
+  }
+  50% {
+    border-radius: 70% 30% 60% 40% / 40% 70% 30% 60%;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  75% {
+    border-radius: 40% 70% 30% 60% / 70% 40% 60% 30%;
+    transform: translate(-52%, -48%) scale(1.01);
+  }
+}
+
+.animate-blob-animation {
+  animation: blob-animation 10s infinite alternate;
+}
+
+/* --- Tambahan Baru untuk Peningkatan UI --- */
+
+/* Untuk bayangan internal lembut pada kartu glassmorphism */
+.glass-inner-shadow {
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05), inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Untuk efek border glow pada gambar profil */
+@keyframes border-glow-purple {
+  0% {
+    box-shadow: 0 0 5px rgba(126, 87, 194, 0.6), 0 0 10px rgba(126, 87, 194, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(126, 87, 194, 0.8), 0 0 20px rgba(126, 87, 194, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(126, 87, 194, 0.6), 0 0 10px rgba(126, 87, 194, 0.4);
+  }
+}
+
+.animate-border-glow-purple {
+  animation: border-glow-purple 3s infinite alternate ease-in-out;
+}
+
+@keyframes border-glow-white {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+}
+
+.animate-border-glow-white {
+  animation: border-glow-white 3s infinite alternate;
+}
+/* src/app/globals.css */
+
+/* ... CSS Anda yang sudah ada ... */
+
+.glassmorphism-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px); /* For Safari compatibility */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+/* --- CSS Kustom untuk Efek Border Gradasi Animasi pada Ikon Sosial --- */
+.social-icon-wrapper {
+  position: relative;
+  overflow: hidden; /* Penting untuk memotong pseudo-element yang keluar */
+  z-index: 1; /* Pastikan konten utama di atas pseudo-element */
+}
+
+.social-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -3px; /* Sedikit lebih besar dari parent untuk efek border */
+  border-radius: inherit; /* Mengikuti border-radius parent */
+  /* Gradasi warna yang berputar */
+  background: conic-gradient(from var(--angle, 0deg), #8A2BE2, #DA70D6, #FF69B4, #8A2BE2);
+  background-size: 200% 200%; /* Untuk animasi background-position */
+  z-index: -1; /* Di belakang konten utama */
+  opacity: 0; /* Tersembunyi secara default */
+  transition: opacity 0.3s ease-in-out; /* Animasi fade in */
+  animation: rotate-gradient 3s linear infinite; /* Animasi rotasi */
+}
+
+.social-icon-wrapper:hover::before {
+  opacity: 1; /* Tampilkan pseudo-element saat hover */
+}
+
+/* Keyframe untuk animasi rotasi gradien */
+@keyframes rotate-gradient {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(0deg); /* Pastikan rotasi dimulai dari 0 */
+  }
+  100% {
+    background-position: 100% 50%;
+    transform: rotate(360deg); /* Rotasi penuh */
+  }
+}
+
+/* Untuk efek grainy overlay */
+.grainy-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' stroke=\'none\' fill=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");
+  background-size: 100px 100px;
+}

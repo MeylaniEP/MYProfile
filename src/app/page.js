@@ -7,6 +7,7 @@ import Project from "./pages/project"
 import Contact from "./pages/contact"
 import Footer from "./components/footer"
 import Email from "./components/email"
+import BeyondCode from "./pages/beyondCode";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Skills/>
       <Project />
       <Contact />
+      <BeyondCode />
       <Footer />
     </div>
   );

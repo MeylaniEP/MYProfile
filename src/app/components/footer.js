@@ -1,116 +1,163 @@
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
+import "aos/dist/aos.css";
+import Aos from "aos";
+
+// Import ikon dari react-icons
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaGithub, FaArrowUp } from 'react-icons/fa';
 
 export default function Footer() {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: true, offset: 150 });
+
+    const handleScroll = () => {
+      if (window.scrollY > 300) { // Tampilkan tombol setelah scroll 300px
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleBackToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  const socialLinks = [
+    {
+      id: 'instagram',
+      icon: FaInstagram,
+      title: "Instagram", // Tambahkan title untuk label teks
+      link: "https://www.instagram.com/meypi__/profilecard/?igsh=MTJya3J4Y2x0enUxOA==",
+      color: "text-pink-500", // Warna default Instagram
+      hoverColor: "hover:text-pink-400",
+      shadowColor: "shadow-pink-500/30",
+      aosDelay: 100
+    },
+    {
+      id: 'facebook',
+      icon: FaFacebookF,
+      title: "Facebook",
+      link: "https://www.facebook.com/meylani.meylani.56679015?mibextid=JRoKGi",
+      color: "text-blue-600", // Warna default Facebook
+      hoverColor: "hover:text-blue-500",
+      shadowColor: "shadow-blue-500/30",
+      aosDelay: 200
+    },
+    {
+      id: 'linkedin',
+      icon: FaLinkedinIn,
+      title: "LinkedIn",
+      link: "https://www.linkedin.com/in/meylani-eka-pertiwi-6a494b31a",
+      color: "text-blue-800", // Warna default LinkedIn
+      hoverColor: "hover:text-blue-700",
+      shadowColor: "shadow-blue-800/30",
+      aosDelay: 300
+    },
+    {
+      id: 'github',
+      icon: FaGithub,
+      title: "GitHub",
+      link: "https://github.com/MeylaniEP",
+      color: "text-gray-400", // Warna default GitHub
+      hoverColor: "hover:text-gray-300",
+      shadowColor: "shadow-gray-500/30",
+      aosDelay: 400
+    },
+  ];
+
   return (
-    <div className="bg-gray-800 text-white py-8">
-      <div className="max-w-6xl mx-auto text-center">
-        {/* Your Name */}
-        <p className="text-2xl font-semibold mb-4">Meylani Eka Pertiwi</p>
+    <div className="relative py-12 md:py-16 bg-gradient-to-br from-gray-950 to-black text-white flex flex-col items-center overflow-hidden"> {/* py-16 md:py-20 -> py-12 md:py-16 */}
+      {/* Background radial gradient / blob effect - Consistent with other sections */}
+      <div className="absolute top-[10%] left-[5%] w-40 h-40 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob-animation z-0 animation-delay-2000"></div> {/* w-48 h-48 -> w-40 h-40 */}
+      <div className="absolute bottom-[10%] right-[5%] w-48 h-48 bg-fuchsia-600 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob-animation z-0 animation-delay-7000"></div> {/* w-56 h-56 -> w-48 h-48 */}
 
-        {/* Social Media Icons */}
-        <div className="flex justify-center gap-6">
-          {/* Instagram Icon */}
-          <a
-            href="https://www.instagram.com/meypi__/profilecard/?igsh=MTJya3J4Y2x0enUxOA=="
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-pink-500"
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M3 8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Zm5-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm7.597 2.214a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2h-.01a1 1 0 0 1-1-1ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
+      {/* Grainy overlay for subtle texture */}
+      <div className="absolute inset-0 z-0 opacity-5 grainy-overlay"></div>
 
-          {/* Facebook Icon */}
-          <a
-            href="https://www.facebook.com/meylani.meylani.56679015?mibextid=JRoKGi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-blue-600"
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fillRule="evenodd"
-                d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
+      <div className="max-w-6xl w-full px-4 md:px-8 relative z-10 text-center">
+        {/* Your Name with Gradient */}
+        <p
+          className="text-3xl md:text-4xl font-extrabold mb-4
+                     bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-fuchsia-400
+                     drop-shadow-lg"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Meylani Eka Pertiwi
+        </p>
 
-          {/* LinkedIn Icon */}
-          <a
-            href="https://www.linkedin.com/in/meylani-eka-pertiwi-6a494b31a"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-blue-800"
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z"
-                clipRule="evenodd"
-              />
-              <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
-            </svg>
-          </a>
+        {/* Catchphrase / Final Statement */}
+        <p
+          className="text-base md:text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed" 
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Terima kasih telah menjelajahi portofolio saya. Mari kita wujudkan ide-ide hebat menjadi kenyataan!
+        </p>
 
-          {/* GitHub Icon */}
-          <a
-            href="https://github.com/MeylaniEP"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-300 hover:text-gray-800"
-          >
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+        {/* Social Media Icons - Enhanced */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8"> {/* gap-6 md:gap-8 -> gap-4 md:gap-6, mb-10 -> mb-8 */}
+          {socialLinks.map((item) => (
+            <a
+              key={item.id}
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group relative w-12 h-12 rounded-full flex items-center justify-center
+                         bg-white bg-opacity-[0.08] backdrop-filter backdrop-blur-xl
+                         border border-white border-opacity-[0.15] shadow-lg
+                         transition-all duration-300 transform
+                         hover:scale-110 hover:shadow-xl ${item.shadowColor}
+                         social-icon-wrapper`} 
+              data-aos="zoom-in"
+              data-aos-delay={item.aosDelay + 200}
             >
-              <path
-                fillRule="evenodd"
-                d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
+              <item.icon size={24} className={`${item.color} transition-all duration-300 group-hover:scale-110 ${item.hoverColor} z-10`} /> {/* size={28} -> size={24} */}
+              {/* Text label that appears on hover */}
+              <span className="absolute left-full ml-2 px-2.5 py-0.5 bg-white bg-opacity-[0.15] rounded-full text-xs font-medium whitespace-nowrap {/* ml-3 -> ml-2, px-3 py-1 -> px-2.5 py-0.5, text-sm -> text-xs */}
+                               opacity-0 translate-x-[-8px] group-hover:opacity-100 group-hover:translate-x-0 {/* translate-x-[-10px] -> translate-x-[-8px] */}
+                               transition-all duration-300 pointer-events-none z-20
+                               hidden md:block">
+                {item.title}
+              </span>
+            </a>
+          ))}
         </div>
 
-        {/* Footer Text */}
-        <p className="text-sm text-gray-400 mt-4">&copy; 2024 Meylani Eka Pertiwi</p>
+        {/* Copyright & Quick Links (Optional) */}
+        <div className="border-t border-gray-700 border-opacity-30 pt-6 mt-6"> {/* pt-8 mt-8 -> pt-6 mt-6 */}
+          <p className="text-xs text-gray-400 mb-1" data-aos="fade-up" data-aos-delay="500"> {/* text-sm -> text-xs, mb-2 -> mb-1 */}
+            &copy; {new Date().getFullYear()} Meylani Eka Pertiwi. All rights reserved.
+          </p>
+          <p className="text-xs text-gray-500" data-aos="fade-up" data-aos-delay="600">
+            Didesain & Dikembangkan dengan ❤️
+          </p>
+        </div>
       </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={handleBackToTop}
+          className="fixed bottom-5 right-24 z-50 p-3 rounded-full bg-fuchsia-600 text-white shadow-lg
+                     hover:bg-fuchsia-700 transition-all duration-300 transform hover:scale-110
+                     animate-bounce-subtle"
+          aria-label="Back to top"
+        >
+          <FaArrowUp size={20} /> 
+        </button>
+      )}
     </div>
   );
 }
